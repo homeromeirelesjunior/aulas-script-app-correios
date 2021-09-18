@@ -1,14 +1,18 @@
 const express = require('express')
 const Correios = require('node-correios')
-const app = express()
+const server = express()
+const cors = require('cors')
 const correio = new Correios()
 const port = 3002
 
-app.listen(port, () => console.log(`Servidor rodando na porta: ${port}`))
+server.use(cors())
 
-app.get('/', (req, res) => {
-    console.log('Rota do CEP encontrada!')
+server.listen(port, () => console.log(`Servidor rodando na porta: ${port}`))
+
+server.get('/', (req, res) => {
     const { cep } = req.query
+    
+    console.log('Rota do CEP encontrada!')
     console.log(cep)
 
     correio.consultaCEP({ cep: cep })
